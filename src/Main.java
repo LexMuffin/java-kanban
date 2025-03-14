@@ -1,3 +1,9 @@
+import enums.Status;
+import task.Epic;
+import task.Subtask;
+import task.Task;
+import taskManager.TaskManager;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -10,9 +16,9 @@ public class Main {
         Epic epic2 = taskManager.createEpic(new Epic("Сдать проект", "Отправить решенный проект"));
         Subtask epic2subtask1 = taskManager.createSubtask(new Subtask("Завести репозиторий", "Создать репозиторий, чтобы залить проект", epic2.getId()));
         //
-        taskManager.getAllTasks();
-        taskManager.getAllEpics();
-        taskManager.getAllSubtasks();
+        System.out.println(taskManager.getAllTasks());
+        System.out.println(taskManager.getAllEpics());
+        System.out.println(taskManager.getAllSubtasks());
         //
         epic2subtask1.setStatus(Status.DONE);
         taskManager.updateSubtask(epic2subtask1);
@@ -22,12 +28,12 @@ public class Main {
         System.out.println(taskManager.getEpicById(epic2.getId()));
         //
         System.out.println("начало_тест1");
-        taskManager.getAllEpics();
-        taskManager.getAllSubtasks();
+        System.out.println(taskManager.getAllEpics());
+        System.out.println(taskManager.getAllSubtasks());
         System.out.println("тест1");
         taskManager.deleteEpicById(epic2.getId());
-        taskManager.getAllEpics();
-        taskManager.getAllSubtasks();
+        System.out.println(taskManager.getAllEpics());
+        System.out.println(taskManager.getAllSubtasks());
         System.out.println("конец_тест1");
         //
         epic1subtask1.setStatus(Status.DONE);
@@ -37,5 +43,8 @@ public class Main {
         System.out.println(taskManager.getEpicById(epic1.getId()));
         taskManager.deleteAllSubtasks();
         System.out.println(taskManager.getEpicById(epic1.getId()));
+        //
+        taskManager.deleteTaskById(task1.getId());
+        System.out.println(taskManager.getAllTasks());
     }
 }
