@@ -101,8 +101,7 @@ public class TaskManager {
     }
 
     public void deleteSubtaskById(Integer subtaskId) {
-        Subtask subtask = getSubtaskById(subtaskId);
-        subtasks.remove(subtaskId);
+        Subtask subtask = subtasks.remove(subtaskId);
         /*Удаляем subtask из epic*/
         Epic epic = epics.get(subtask.getEpicLink());
         ArrayList<Subtask> epicSubtasks = epic.getSubtasks();
@@ -160,9 +159,9 @@ public class TaskManager {
     }
 
     public void deleteEpicById(Integer epicId) {
+        Epic epic = epics.remove(epicId);
         /*Удаляем substask, т.к. удаляем epic и все subtask должны быть тоже удалены*/
-        ArrayList<Subtask> epicSubtasksList = epics.get(epicId).getSubtasks();
-        for (Subtask subtask: epicSubtasksList) {
+        for (Subtask subtask: epic.getSubtasks()) {
             subtasks.remove(subtask.getId());
         }
         /*Удаляем сам epic*/
