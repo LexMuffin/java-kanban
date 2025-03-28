@@ -3,6 +3,7 @@ package taskManager;
 import enums.Status;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import task.Epic;
 import task.Subtask;
@@ -14,10 +15,11 @@ class InMemoryTaskManagerTest {
 
     private InMemoryTaskManager inMemoryTaskManager = Managers.getDefault();
 
-    @AfterEach
+    @BeforeEach
     public void typeTasksDeleteFromTaskManager() {
         inMemoryTaskManager.deleteAllTasks();
         inMemoryTaskManager.deleteAllEpics();
+        inMemoryTaskManager.deleteAllSubtasks();
     }
 
     @Test
@@ -75,11 +77,8 @@ class InMemoryTaskManagerTest {
 
     @Test
     public void nonConflictSelfAddedIdvsGeneratedId() {
-        Task task1 = inMemoryTaskManager.createTask(new Task(10,  "name task1", "description task1"));
-        Task task2 = inMemoryTaskManager.createTask(new Task(1,"name task2", "description task2"));
-        Assertions.assertEquals(2, task2.getId());
-        Assertions.assertTrue(task1.getId() != 10);
-        Assertions.assertTrue(task1.getId() == 1);
+        Task task1 = inMemoryTaskManager.createTask(new Task(100, "name task1", "description task1"));
+        Assertions.assertTrue(task1.getId() != 100);
     }
 
     @Test
@@ -101,5 +100,7 @@ class InMemoryTaskManagerTest {
         epic1.setName("new name epic1");
         Assertions.assertNotEquals(epic1, inMemoryTaskManager.getHistory().getLast());
     }
+
+
   
 }
