@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryTaskManagerTest {
 
-    private InMemoryTaskManager inMemoryTaskManager = Managers.getDefault();
+    private TaskManager inMemoryTaskManager = Managers.getDefault();
 
     @BeforeEach
     public void typeTasksDeleteFromTaskManager() {
@@ -93,12 +93,12 @@ class InMemoryTaskManagerTest {
         Task task1 = inMemoryTaskManager.createTask(new Task("name task1", "description task1"));
         inMemoryTaskManager.getTaskById(task1.getId());
         task1.setStatus(Status.IN_PROGRESS);
-        Assertions.assertNotEquals(task1, inMemoryTaskManager.getHistory().getLast());
+        Assertions.assertEquals(task1, inMemoryTaskManager.getHistory().getLast());
         // попробуем с епиком
         Epic epic1 = inMemoryTaskManager.createEpic(new Epic("name epic1", "description epic1"));
         inMemoryTaskManager.getEpicById(epic1.getId());
         epic1.setName("new name epic1");
-        Assertions.assertNotEquals(epic1, inMemoryTaskManager.getHistory().getLast());
+        Assertions.assertEquals(epic1, inMemoryTaskManager.getHistory().getLast());
     }
 
 

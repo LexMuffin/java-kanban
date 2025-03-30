@@ -4,11 +4,12 @@ import task.Subtask;
 import task.Task;
 import taskManager.InMemoryTaskManager;
 import taskManager.Managers;
+import taskManager.TaskManager;
 
 public class Main {
     public static void main(String[] args) {
 
-        InMemoryTaskManager inMemoryTaskManager = Managers.getDefault();
+        TaskManager inMemoryTaskManager = Managers.getDefault();
         Task task1 = inMemoryTaskManager.createTask(new Task("Завтрак", "Сделать бутерброд"));
         Task task2 = inMemoryTaskManager.createTask(new Task("Работа", "Собрать на работы"));
         Epic epic1 = inMemoryTaskManager.createEpic(new Epic("Проект", "Сделать проект на Java"));
