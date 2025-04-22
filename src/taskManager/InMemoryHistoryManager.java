@@ -1,33 +1,82 @@
 package taskManager;
 
 import task.Task;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    private final static int MAX_LENGTH_TASKS_HISTORY = 10;
-    private final List<Task> tasksHistoryList = new ArrayList<>();
+    private static class Node {
+
+        Task value;
+        Node next;
+        Node prev;
+
+        public Node(Task value) {
+            this.value = value;
+        }
+    }
+
+    private void removeNode(Node node) {
+        if (node.prev != null) {
+            Node previousNode = node.prev;
+            previousNode.next = node.next;
+        } else {
+            head = node.next;
+        }
+        if (node.next != null) {
+            Node nextNode = node.next;
+            nextNode.prev = node.prev;
+        } else {
+            tail = node.prev;
+        }
+    }
+
+    private final Map<Integer, Node> tasksHistoryMap = new LinkedHashMap<>();
+    private Node head;
+    private Node tail;
 
     @Override
     public void add(Task task) {
         if (task == null) {
             return;
         }
-        /*В одном из пунктов к созданию тестов - убедитесь, что задачи, добавляемые в HistoryManager,
-        сохраняют предыдущую версию задачи и её данных.
-        Я вот собственно и подумал что штатным методом это сделать невозможно так как в истории и
-        таск менеджере ссылка на задачу одна и та же и при изменении в таск менеджере изменяется в истории.
-        Поэтому я создавал временную задачу с точно такими же параметрами(фактически клон) и клал в историю*/
-        if (tasksHistoryList.size() > MAX_LENGTH_TASKS_HISTORY) {
-            tasksHistoryList.removeFirst();
+        remove(task.getId());
+        Node newNode = new Node(task);
+        linkLast(newNode);
+        tasksHistoryMap.put(task.getId(), newNode);
+    }
+
+    private void linkLast(Node node) {
+        if (head != null) {
+            tail.next = node;
+            node.prev = tail;
+        } else {
+            head = node;
         }
-        tasksHistoryList.add(task);
+        tail = node;
+    }
+
+    @Override
+    public void remove(int id) {
+        Node node = tasksHistoryMap.get(id);
+        if (node != null) {
+            removeNode(node);
+            // РµСЃР»Рё СЏ РЅРµ РѕС€РёР±Р°СЋСЃСЊ РјРѕР¶РЅРѕ РѕС‚РґРµР»СЊРЅРѕ РЅРµ РїСЂРѕРїРёСЃС‹РІР°С‚СЊ,
+            // С‚.Рє. СЃСЃС‹Р»РѕРє РЅР° РѕР±СЉРµРєС‚ РЅРµС‚ Рё СЃР±РѕСЂС‰РёРє РјСѓСЃРѕСЂР° РїРѕРґС‡РёСЃС‚РёС‚ РѕСЃС‚Р°РµС‚СЃСЏ
+            tasksHistoryMap.remove(node);
+        }
     }
 
     @Override
     public List<Task> getHistory() {
-        return new ArrayList<>(tasksHistoryList);
+        List<Task> tasks = new ArrayList<>();
+        Node currentNode = head;
+        while (currentNode != null) {
+            tasks.add(currentNode.value);
+            currentNode = currentNode.next;
+        }
+        return tasks;
     }
 
 }

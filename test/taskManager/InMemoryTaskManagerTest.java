@@ -1,15 +1,12 @@
 package taskManager;
 
 import enums.Status;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import task.Epic;
 import task.Subtask;
 import task.Task;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryTaskManagerTest {
 
@@ -60,7 +57,6 @@ class InMemoryTaskManagerTest {
 
     @Test
     public void utilityClassExamplesReturnsClassObjects() {
-        /*Или можно создать объект класса Managers*/
         Assertions.assertInstanceOf(InMemoryTaskManager.class, Managers.getDefault());
         Assertions.assertInstanceOf(InMemoryHistoryManager.class, Managers.getDefaultHistory());
     }
@@ -91,10 +87,10 @@ class InMemoryTaskManagerTest {
     @Test
     public void previosTaskVersionAfterHistoryAdded() {
         Task task1 = inMemoryTaskManager.createTask(new Task("name task1", "description task1"));
+        Task task2 = inMemoryTaskManager.createTask(new Task("name task1", "description task2"));
         inMemoryTaskManager.getTaskById(task1.getId());
         task1.setStatus(Status.IN_PROGRESS);
         Assertions.assertEquals(task1, inMemoryTaskManager.getHistory().getLast());
-        // попробуем с епиком
         Epic epic1 = inMemoryTaskManager.createEpic(new Epic("name epic1", "description epic1"));
         inMemoryTaskManager.getEpicById(epic1.getId());
         epic1.setName("new name epic1");
