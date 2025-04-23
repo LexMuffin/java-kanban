@@ -6,6 +6,10 @@ import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
+    private final Map<Integer, Node> tasksHistoryMap = new LinkedHashMap<>();
+    private Node head;
+    private Node tail;
+
     private static class Node {
 
         Task value;
@@ -16,25 +20,6 @@ public class InMemoryHistoryManager implements HistoryManager {
             this.value = value;
         }
     }
-
-    private void removeNode(Node node) {
-        if (node.prev != null) {
-            Node previousNode = node.prev;
-            previousNode.next = node.next;
-        } else {
-            head = node.next;
-        }
-        if (node.next != null) {
-            Node nextNode = node.next;
-            nextNode.prev = node.prev;
-        } else {
-            tail = node.prev;
-        }
-    }
-
-    private final Map<Integer, Node> tasksHistoryMap = new LinkedHashMap<>();
-    private Node head;
-    private Node tail;
 
     @Override
     public void add(Task task) {
@@ -77,6 +62,21 @@ public class InMemoryHistoryManager implements HistoryManager {
             currentNode = currentNode.next;
         }
         return tasks;
+    }
+
+    private void removeNode(Node node) {
+        if (node.prev != null) {
+            Node previousNode = node.prev;
+            previousNode.next = node.next;
+        } else {
+            head = node.next;
+        }
+        if (node.next != null) {
+            Node nextNode = node.next;
+            nextNode.prev = node.prev;
+        } else {
+            tail = node.prev;
+        }
     }
 
 }
