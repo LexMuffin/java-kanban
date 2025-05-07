@@ -1,11 +1,8 @@
-package taskManager;
+package managers;
 
 import enums.Status;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import task.Epic;
-import task.Subtask;
 import task.Task;
 
 import java.util.List;

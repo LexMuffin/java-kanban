@@ -1,4 +1,4 @@
-package taskManager;
+package managers;
 
 import exceptions.ManagerSaveException;
 import task.Subtask;

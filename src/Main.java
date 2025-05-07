@@ -2,8 +2,8 @@ import enums.Status;
 import task.Epic;
 import task.Subtask;
 import task.Task;
-import taskManager.Managers;
-import taskManager.TaskManager;
+import managers.Managers;
+import managers.TaskManager;
 
 public class Main {
     public static void main(String[] args) {
