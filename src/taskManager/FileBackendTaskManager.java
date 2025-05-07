@@ -1,6 +1,7 @@
 package taskManager;
 
 import enums.Status;
+import enums.TaskType;
 import exceptions.ManagerSaveException;
 import task.Epic;
 import task.Subtask;
@@ -19,27 +20,21 @@ public class FileBackendTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public Task createTask(Task task) {
+    public void createTask(Task task) {
         super.createTask(task);
         save();
-
-        return task;
     }
 
     @Override
-    public Subtask createSubtask(Subtask subtask) {
+    public void createSubtask(Subtask subtask) {
         super.createSubtask(subtask);
         save();
-
-        return subtask;
     }
 
     @Override
-    public Epic createEpic(Epic epic) {
+    public void createEpic(Epic epic) {
         super.createEpic(epic);
         save();
-
-        return epic;
     }
 
     @Override
@@ -79,27 +74,21 @@ public class FileBackendTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public Task updateTask(Task task) {
+    public void updateTask(Task task) {
         super.updateTask(task);
         save();
-
-        return task;
     }
 
     @Override
-    public Subtask updateSubtask(Subtask subtask) {
+    public void updateSubtask(Subtask subtask) {
         super.updateSubtask(subtask);
         save();
-
-        return subtask;
     }
 
     @Override
-    public Epic updateEpic(Epic epic) {
+    public void updateEpic(Epic epic) {
         super.updateEpic(epic);
         save();
-
-        return epic;
     }
 
 
@@ -141,7 +130,7 @@ public class FileBackendTaskManager extends InMemoryTaskManager {
 
     private static Task stringToTask(String value) {
         String[] valueArray = value.split(",");
-        if (valueArray[1].equals("SUBTASK")) {
+        if (valueArray[1].equalsIgnoreCase(String.valueOf(TaskType.SUBTASK))) {
             Subtask subtask = new Subtask(
                     Integer.parseInt(valueArray[0]),
                     valueArray[2],
@@ -150,7 +139,7 @@ public class FileBackendTaskManager extends InMemoryTaskManager {
             );
             subtask.setStatus(Status.valueOf(valueArray[3]));
             return subtask;
-        } else if (valueArray[1].equals("EPIC")) {
+        } else if (valueArray[1].equalsIgnoreCase(String.valueOf(TaskType.EPIC))) {
             Epic epic = new Epic(
                     Integer.parseInt(valueArray[0]),
                     valueArray[2],
@@ -187,9 +176,9 @@ public class FileBackendTaskManager extends InMemoryTaskManager {
 
     private void uploadTask(String value) {
         Task task = stringToTask(value);
-        if (task instanceof Epic) {
+        if (task.getClass().getSimpleName().equalsIgnoreCase(String.valueOf(TaskType.EPIC))) {
             createEpic((Epic) task);
-        } else if (task instanceof Subtask) {
+        } else if (task.getClass().getSimpleName().equalsIgnoreCase(String.valueOf(TaskType.SUBTASK))) {
             createSubtask((Subtask) task);
         } else {
             createTask(task);

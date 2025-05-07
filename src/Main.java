@@ -1,4 +1,5 @@
 import enums.Status;
+import enums.TaskType;
 import task.Epic;
 import task.Subtask;
 import task.Task;
@@ -10,13 +11,20 @@ public class Main {
     public static void main(String[] args) {
 
         TaskManager inMemoryTaskManager = Managers.getDefault();
-        Task task1 = inMemoryTaskManager.createTask(new Task("Завтрак", "Сделать бутерброд"));
-        Task task2 = inMemoryTaskManager.createTask(new Task("Работа", "Собрать на работы"));
-        Epic epic1 = inMemoryTaskManager.createEpic(new Epic("Проект", "Сделать проект на Java"));
-        Subtask epic1subtask1 = inMemoryTaskManager.createSubtask(new Subtask("Создать классы", "Сделать классы для проекта", epic1.getId()));
-        Subtask epic1subtask2 = inMemoryTaskManager.createSubtask(new Subtask("Создать управляющий класс", "Создать исполняющий класс", epic1.getId()));
-        Epic epic2 = inMemoryTaskManager.createEpic(new Epic("Сдать проект", "Отправить решенный проект"));
-        Subtask epic2subtask1 = inMemoryTaskManager.createSubtask(new Subtask("Завести репозиторий", "Создать репозиторий, чтобы залить проект", epic2.getId()));
+        Task task1 = new Task("Завтрак", "Сделать бутерброд");
+        inMemoryTaskManager.createTask(task1);
+        Task task2 = new Task("Работа", "Собрать на работы");
+        inMemoryTaskManager.createTask(task2);
+        Epic epic1 = new Epic("Проект", "Сделать проект на Java");
+        inMemoryTaskManager.createEpic(epic1);
+        Subtask epic1subtask1 = new Subtask("Создать классы", "Сделать классы для проекта", epic1.getId());
+        inMemoryTaskManager.createSubtask(epic1subtask1);
+        Subtask epic1subtask2 = new Subtask("Создать управляющий класс", "Создать исполняющий класс", epic1.getId());
+        inMemoryTaskManager.createSubtask(epic1subtask2);
+        Epic epic2 = new Epic("Сдать проект", "Отправить решенный проект");
+        inMemoryTaskManager.createEpic(epic2);
+        Subtask epic2subtask1 = new Subtask("Завести репозиторий", "Создать репозиторий, чтобы залить проект", epic2.getId());
+        inMemoryTaskManager.createSubtask(epic2subtask1);
         //
         System.out.println(inMemoryTaskManager.getAllTasks());
         System.out.println(inMemoryTaskManager.getAllEpics());

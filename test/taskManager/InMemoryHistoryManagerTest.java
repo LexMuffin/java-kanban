@@ -17,7 +17,8 @@ class InMemoryHistoryManagerTest {
 
     @Test
     public void checkHistoryManagerTaskAdded() {
-        Task task1 = inMemoryTaskManager.createTask(new Task("name task1", "description task1"));
+        Task task1 = new Task("name task1", "description task1");
+        inMemoryTaskManager.createTask(task1);
         inMemoryHistoryManager.add(task1);
         List<Task> taskHistory = inMemoryHistoryManager.getHistory();
         Assertions.assertEquals(1, taskHistory.size());
@@ -26,9 +27,11 @@ class InMemoryHistoryManagerTest {
 
     @Test
     public void checkEmptyHistoryManagerWhenTaskDeleted() {
-        Task task1 = inMemoryTaskManager.createTask(new Task("name task1", "description task1"));
+        Task task1 = new Task("name task1", "description task1");
+        inMemoryTaskManager.createTask(task1);
         inMemoryHistoryManager.add(task1);
-        Task task2 = inMemoryTaskManager.createTask(new Task("name task2", "description task2"));
+        Task task2 = new Task("name task2", "description task2");
+        inMemoryTaskManager.createTask(task2);
         inMemoryHistoryManager.add(task2);
         List<Task> taskHistory = inMemoryHistoryManager.getHistory();
         Assertions.assertEquals(2, taskHistory.size());
@@ -39,8 +42,10 @@ class InMemoryHistoryManagerTest {
 
     @Test
     public void checkHistoryManagerTasksOrder() {
-        Task task1 = inMemoryTaskManager.createTask(new Task("name task1", "description task1"));
-        Task task2 = inMemoryTaskManager.createTask(new Task("name task2", "description task2"));
+        Task task1 = new Task("name task1", "description task1");
+        inMemoryTaskManager.createTask(task1);
+        Task task2 = new Task("name task2", "description task2");
+        inMemoryTaskManager.createTask(task2);
         inMemoryHistoryManager.add(task1);
         inMemoryHistoryManager.add(task2);
         Assertions.assertEquals(task1, inMemoryHistoryManager.getHistory().getFirst());
@@ -53,7 +58,8 @@ class InMemoryHistoryManagerTest {
 
     @Test
     public void checkHistoryManagerTaskVersion() {
-        Task task1 = inMemoryTaskManager.createTask(new Task("name task1", "description task1"));
+        Task task1 = new Task("name task1", "description task1");
+        inMemoryTaskManager.createTask(task1);
         inMemoryHistoryManager.add(task1);
         List<Task> taskHistory = inMemoryHistoryManager.getHistory();
         Assertions.assertEquals(Status.NEW, taskHistory.getLast().getStatus());
@@ -63,8 +69,10 @@ class InMemoryHistoryManagerTest {
 
     @Test
     public void checkHistoryManagerDuplicatesRemove() {
-        Task task1 = inMemoryTaskManager.createTask(new Task("name task1", "description task1"));
-        Task task2 = inMemoryTaskManager.createTask(new Task("name task2", "description task2"));
+        Task task1 = new Task("name task1", "description task1");
+        inMemoryTaskManager.createTask(task1);
+        Task task2 = new Task("name task2", "description task2");
+        inMemoryTaskManager.createTask(task2);
         task1.setId(1);
         task2.setId(1);
         inMemoryHistoryManager.add(task1);
