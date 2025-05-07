@@ -47,8 +47,6 @@ public class InMemoryHistoryManager implements HistoryManager {
         Node node = tasksHistoryMap.get(id);
         if (node != null) {
             removeNode(node);
-            // если я не ошибаюсь можно отдельно не прописывать,
-            // т.к. ссылок на объект нет и сборщик мусора подчистит остается
             tasksHistoryMap.remove(node);
         }
     }
