@@ -1,6 +1,7 @@
 package managers;
 
 import exceptions.ManagerSaveException;
+import org.junit.jupiter.api.BeforeEach;
 import task.Subtask;
 import task.Task;
 import org.junit.jupiter.api.Test;
@@ -27,11 +28,10 @@ public class FileBackendTaskManagerTest {
         String content = """
                 id,type,name,status,description,epic
                 1,TASK,Task1,NEW,Description task1,
-                2,EPIC,Epic2,DONE,Description epic2,
-                3,SUBTASK,Sub Task2,DONE,Description sub task3,2
+                2,EPIC,Epic1,DONE,Description epic1,
+                3,SUBTASK,Subtask2,DONE,Description subtask3,2
                 """;
         Files.write(Paths.get(filename.getPath()), content.getBytes());
-
         FileBackendTaskManager taskManager = FileBackendTaskManager.loadFromFile(filename);
 
         assertEquals(1, taskManager.getAllTasks().size());

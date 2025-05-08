@@ -2,6 +2,7 @@ package managers;
 
 import enums.Status;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import task.Task;
 
@@ -9,8 +10,15 @@ import java.util.List;
 
 class InMemoryHistoryManagerTest {
 
-    private TaskManager inMemoryTaskManager = Managers.getDefault();
-    private HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();
+    private final TaskManager inMemoryTaskManager = Managers.getDefault();
+    private final HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();
+
+    @BeforeEach
+    public void typeTasksDeleteFromTaskManager() {
+        inMemoryTaskManager.deleteAllTasks();
+        inMemoryTaskManager.deleteAllEpics();
+        inMemoryTaskManager.deleteAllSubtasks();
+    }
 
     @Test
     public void checkHistoryManagerTaskAdded() {

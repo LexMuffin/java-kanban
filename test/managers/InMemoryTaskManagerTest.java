@@ -10,7 +10,7 @@ import task.Task;
 
 class InMemoryTaskManagerTest {
 
-    private TaskManager inMemoryTaskManager = Managers.getDefault();
+    private final TaskManager inMemoryTaskManager = Managers.getDefault();
 
     @BeforeEach
     public void typeTasksDeleteFromTaskManager() {
