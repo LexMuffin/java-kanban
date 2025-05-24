@@ -14,7 +14,12 @@ import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class FileBackendTaskManagerTest {
+public class FileBackendTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
+
+    @BeforeEach
+    public void setUp() {
+        taskManager = new FileBackendTaskManager(new File("test.csv"));
+    }
 
     @Test
     void shouldThrowExceptionWhenFileNotExists() {

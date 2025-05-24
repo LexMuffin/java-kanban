@@ -2,6 +2,8 @@ package task;
 
 import enums.Status;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
@@ -10,6 +12,25 @@ public class Task {
     protected String name;
     protected String description;
     protected Status status;
+    protected LocalDateTime startTime;
+    protected Duration duration;
+
+    public Task(int id, String name, String description, LocalDateTime startTime, Duration duration) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.status = Status.NEW;
+        this.startTime = startTime;
+        this.duration = duration;
+    }
+
+    public Task(String name, String description, LocalDateTime startTime, Duration duration) {
+        this.name = name;
+        this.description = description;
+        this.status = Status.NEW;
+        this.startTime = startTime;
+        this.duration = duration;
+    }
 
     public Task(int id, String name, String description) {
         this.id = id;
@@ -56,6 +77,29 @@ public class Task {
         this.status = status;
     }
 
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public LocalDateTime getEndTime() {
+        if (startTime == null) {
+            return null;
+        }
+        return startTime.plus(duration);
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) {
@@ -73,7 +117,7 @@ public class Task {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, status);
+        return Objects.hash(id, name, description, status, startTime, duration);
     }
 
     @Override
@@ -82,6 +126,8 @@ public class Task {
                 "id=" + id +
                 ", name='" + name + "'" +
                 ", description='" + description.length() + "'" +
+                ", duration='" + duration + "'" +
+                ", startTime='" + startTime + "'" +
                 ", status=" + status + "}";
     }
 
