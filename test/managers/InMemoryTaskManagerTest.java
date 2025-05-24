@@ -19,13 +19,6 @@ class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
         taskManager = new InMemoryTaskManager();
     }
 
-    /*@BeforeEach
-    public void typeTasksDeleteFromTaskManager() {
-        taskManager.deleteAllTasks();
-        taskManager.deleteAllEpics();
-        taskManager.deleteAllSubtasks();
-    }*/
-
     @Test
     public void checkTasksEquals() {
         Task task = new Task("task name", "task description");
