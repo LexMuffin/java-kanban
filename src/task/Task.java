@@ -1,6 +1,7 @@
 package task;
 
 import enums.Status;
+import enums.TaskType;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -98,6 +99,10 @@ public class Task {
             return null;
         }
         return startTime.plus(duration);
+    }
+
+    public TaskType getType() {
+        return TaskType.TASK;
     }
 
     @Override

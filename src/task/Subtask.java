@@ -1,5 +1,7 @@
 package task;
 
+import enums.TaskType;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -34,6 +36,11 @@ public class Subtask extends Task {
 
     public int getEpicLink() {
         return epicLink;
+    }
+
+    @Override
+    public TaskType getType() {
+        return TaskType.SUBTASK;
     }
 
     @Override

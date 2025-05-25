@@ -1,5 +1,7 @@
 package task;
 
+import enums.TaskType;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -36,6 +38,11 @@ public class Epic extends Task {
     @Override
     public LocalDateTime getEndTime() {
         return endTime;
+    }
+
+    @Override
+    public TaskType getType() {
+        return TaskType.EPIC;
     }
 
     @Override

@@ -124,7 +124,7 @@ public class FileBackendTaskManager extends InMemoryTaskManager {
                 task.getName(),
                 task.getStatus(),
                 task.getDescription(),
-                (task instanceof Subtask) ? ((Subtask)task).getEpicLink() : ""
+                (task.getType().equals(TaskType.SUBTASK)) ? ((Subtask)task).getEpicLink() : ""
         );
     }
 
@@ -177,9 +177,9 @@ public class FileBackendTaskManager extends InMemoryTaskManager {
     private void uploadTask(String value) {
         Task task = stringToTask(value);
         if (task.getClass().getSimpleName().equalsIgnoreCase(String.valueOf(TaskType.EPIC))) {
-            createEpic((Epic) task);
+            createEpic((Epic)task);
         } else if (task.getClass().getSimpleName().equalsIgnoreCase(String.valueOf(TaskType.SUBTASK))) {
-            createSubtask((Subtask) task);
+            createSubtask((Subtask)task);
         } else {
             createTask(task);
         }
