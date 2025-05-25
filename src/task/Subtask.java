@@ -1,10 +1,14 @@
 package task;
 
+import enums.TaskType;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Subtask extends Task {
 
-    private final int epicLink;
+    protected final int epicLink;
 
     public Subtask(int id, String name, String description, int epicLink) {
         super(id, name, description);
@@ -16,8 +20,27 @@ public class Subtask extends Task {
         this.epicLink = epicLink;
     }
 
+    public Subtask(int id, String name, String description, LocalDateTime startTime, Duration duration, int epicLink) {
+        super(id, name, description);
+        this.startTime = startTime;
+        this.duration = duration;
+        this.epicLink = epicLink;
+    }
+
+    public Subtask(String name, String description, LocalDateTime startTime, Duration duration, int epicLink) {
+        super(name, description);
+        this.startTime = startTime;
+        this.duration = duration;
+        this.epicLink = epicLink;
+    }
+
     public int getEpicLink() {
         return epicLink;
+    }
+
+    @Override
+    public TaskType getType() {
+        return TaskType.SUBTASK;
     }
 
     @Override
