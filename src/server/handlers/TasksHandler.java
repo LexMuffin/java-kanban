@@ -35,7 +35,6 @@ public class TasksHandler extends BaseHttpHandler {
                 sentNotFound(exchange);
             }
         }
-
     }
 
     @Override
@@ -45,13 +44,11 @@ public class TasksHandler extends BaseHttpHandler {
             Task task = gson.fromJson(json, Task.class);
             if (task.getName() == null || task.getDescription() == null) {
                 sendText(exchange, "Поля должны быть заполнены", 400);
-            }
-            if (taskManager.getTaskById(task.getId()) == null) {
+            } else if (task.getId() == 0) {
                 taskManager.createTask(task);
                 int createdTaskId = taskManager.getAllTasks().getLast().getId();
                 sendText(exchange, "Задача " + createdTaskId + " создана", 201);
-            }
-            if (taskManager.getTaskById(task.getId()) != null) {
+            } else if (task.getId() != 0) {
                 taskManager.updateTask(task);
                 int updatedTaskId = task.getId();
                 sendText(exchange, "Задача " + updatedTaskId + " обновлена", 201);

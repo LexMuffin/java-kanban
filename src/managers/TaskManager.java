@@ -44,4 +44,10 @@ public interface TaskManager {
     void deleteEpicById(Integer epicId);
 
     List<Task> getHistory();
+
+    boolean isTaskOverlap(Task task);
+
+    void addPrioritizedTask(Task task);
+
+    List<Task> getPrioritizedTasks();
 }

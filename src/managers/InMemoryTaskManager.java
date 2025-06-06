@@ -285,13 +285,15 @@ public class InMemoryTaskManager implements TaskManager {
 
     }
 
-    private boolean isTaskOverlap(Task task) {
+    @Override
+    public boolean isTaskOverlap(Task task) {
         return prioritizedTasks.stream()
                 .anyMatch(otherTask -> otherTask.getStartTime().isBefore(task.getEndTime())
                         && task.getStartTime().isBefore(otherTask.getEndTime())
                 );
     }
 
+    @Override
     public void addPrioritizedTask(Task task) {
         if (task.getStartTime() == null) {
             return;
@@ -302,6 +304,7 @@ public class InMemoryTaskManager implements TaskManager {
         prioritizedTasks.add(task);
     }
 
+    @Override
     public List<Task> getPrioritizedTasks() {
         return prioritizedTasks.stream().toList();
     }

@@ -2,6 +2,7 @@ package server.handlers;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
+import exceptions.ManagerTimeConflictException;
 import exceptions.NotFoundException;
 import managers.TaskManager;
 import task.Subtask;
@@ -45,19 +46,19 @@ public class SubtasksHandler extends BaseHttpHandler {
             Subtask subtask = gson.fromJson(json, Subtask.class);
             if (subtask.getName() == null || subtask.getDescription() == null || subtask.getEpicLink() == 0) {
                 sendText(exchange, "Поля должны быть заполнены", 400);
-            }
-            if (taskManager.getSubtaskById(subtask.getId()) == null) {
+            } else if (taskManager.getSubtaskById(subtask.getId()) == null) {
                 taskManager.createSubtask(subtask);
                 int createdSubtaskId = taskManager.getAllSubtasks().getLast().getId();
                 sendText(exchange, "Задача " + createdSubtaskId + "создана", 201);
-            }
-            if (taskManager.getSubtaskById(subtask.getId()) != null) {
+            } else if (taskManager.getSubtaskById(subtask.getId()) != null) {
                 taskManager.updateSubtask(subtask);
                 int updatedSubtaskId = subtask.getId();
                 sendText(exchange, "Задача " + updatedSubtaskId + "обновлена", 201);
             }
         } catch (NotFoundException e) {
             sentNotFound(exchange);
+        } catch (ManagerTimeConflictException e) {
+            sendHasInteractions(exchange);
         }
     }
 

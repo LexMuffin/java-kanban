@@ -5,13 +5,10 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.http.HttpClient;
 
-import com.google.gson.GsonBuilder;
 import managers.Managers;
 import managers.TaskManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import server.utils.DurationTypeAdapter;
-import server.utils.LocalDateTimeTypeAdapter;
 import task.Epic;
 import task.Subtask;
 import task.Task;

@@ -17,7 +17,7 @@ public class HistoryHandler extends BaseHttpHandler {
     @Override
     public void handleGet(HttpExchange exchange) throws IOException {
         String urlPath = exchange.getRequestURI().getPath();
-        if (urlPath.equals("/hitory")) {
+        if (urlPath.equals("/history")) {
             sendText(exchange, gson.toJson(taskManager.getHistory()), 200);
         } else {
             sentNotFound(exchange);

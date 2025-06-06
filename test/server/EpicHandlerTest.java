@@ -68,7 +68,7 @@ public class EpicHandlerTest extends BaseHttpHandlerTest {
                 .uri(URI.create("http://localhost:8080/epics"))
                 .POST(HttpRequest.BodyPublishers.ofString(epicJson))
                 .build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        client.send(request, HttpResponse.BodyHandlers.ofString());
 
         int epicId = taskManager.getAllEpics().get(0).getId();
         Subtask subtask = createSubtask(epicId);
@@ -77,7 +77,7 @@ public class EpicHandlerTest extends BaseHttpHandlerTest {
                 .uri(URI.create("http://localhost:8080/subtasks"))
                 .POST(HttpRequest.BodyPublishers.ofString(subtaskJson))
                 .build();
-        HttpResponse<String> response2 = client.send(request2, HttpResponse.BodyHandlers.ofString());
+        client.send(request2, HttpResponse.BodyHandlers.ofString());
 
         HttpRequest request3 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/epics/" + epicId + "/subtasks"))
