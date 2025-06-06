@@ -15,7 +15,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class HttpTaskServer {
-    private final int PORT = 8080;
     private HttpServer httpServer;
     private final TaskManager taskManager;
     private Gson gson;
@@ -26,7 +25,7 @@ public class HttpTaskServer {
 
     public HttpTaskServer(TaskManager taskManager) throws IOException {
         this.taskManager = taskManager;
-        httpServer = HttpServer.create(new InetSocketAddress("localhost", PORT), 0);
+        httpServer = HttpServer.create(new InetSocketAddress("localhost", 8080), 0);
         this.gson = createGson();
     }
 

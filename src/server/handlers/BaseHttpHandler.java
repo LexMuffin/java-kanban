@@ -2,7 +2,6 @@ package server.handlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import exceptions.NotFoundException;
 import managers.TaskManager;
 
 import java.io.IOException;
