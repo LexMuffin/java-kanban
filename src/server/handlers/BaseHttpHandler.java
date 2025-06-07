@@ -2,6 +2,7 @@ package server.handlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import enums.HttpMethod;
 import managers.TaskManager;
 
 import java.io.IOException;
@@ -19,19 +20,13 @@ public abstract class BaseHttpHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        HttpMethod httpMethod = HttpMethod.valueOf(exchange.getRequestMethod());
         try {
-            switch (exchange.getRequestMethod()) {
-                case "GET":
-                    handleGet(exchange);
-                    break;
-                case "POST":
-                    handlePost(exchange);
-                    break;
-                case "DELETE":
-                    handleDelete(exchange);
-                    break;
-                default:
-                    sendText(exchange, "Такого метода не существует", 405);
+            switch (httpMethod) {
+                case GET -> handleGet(exchange);
+                case POST -> handlePost(exchange);
+                case DELETE -> handleDelete(exchange);
+                default -> sendText(exchange, "Такого метода не существует", 405);
             }
         } catch (Exception e) {
             sentNotFound(exchange);
